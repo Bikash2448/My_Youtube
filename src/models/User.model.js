@@ -56,11 +56,11 @@ UserSchema.pre("save", async function(next){
 })
 
 UserSchema.methods.isPasswordCorrect = async function(password){
+    console.log("model password")
     return await bcrypt.compare(password, this.password)
 }
 
 UserSchema.methods.generateAccessToken = function(){
-    console.log("here in model")
     return  jwt.sign(
         {
             _id: this._id,

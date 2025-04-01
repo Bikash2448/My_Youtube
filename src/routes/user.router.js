@@ -1,17 +1,31 @@
 import express from 'express'
 import { upload } from '../middlewares/multer.js'
-import {registerUser,loginUser,logoutUser,accessRefreshtoken} from '../controllers/user.controller.js'
+import {registerUser,
+        loginUser,
+        logoutUser,
+        accessRefreshtoken,
+        changePassword,
+        getCurrentuser,
+        updateAccountdetails,
+        updateAvatar,
+        updateCoverimg} from '../controllers/user.controller.js'
+
 import {verifyJWT} from '../middlewares/auth.js'
 
 export const router= express.Router()
 
-console.log("User Router file")
-router.route('/').post((req,res)=>{
-    console.log("router")
+router.get("/",(req,res)=>{
+    console.log("get request")
     res.json({
         message:"from router"
     })
 })
+// router.route('/').post((req,res)=>{
+//     console.log("router")
+//     res.json({
+//         message:"from router"
+//     })
+// })
 
 router.route('/register').post(
     upload.fields([
@@ -23,8 +37,16 @@ router.route('/register').post(
 
 router.route("/login").post(loginUser)
 
-
+// Secure route
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/new-accesstoken").post(accessRefreshtoken)
+router.route("/password-change").post(verifyJWT,changePassword)
+router.route("/current-user").get(verifyJWT,getCurrentuser)
+router.route("/update-account").post(verifyJWT,updateAccountdetails)
+router.route("/updateAvatar").post(upload.single( 'avatar'),updateAvatar)
+router.route("/updateCoverimg").post(verifyJWT,upload.single('coverImage'),updateCoverimg)
+
+
+
 
 
