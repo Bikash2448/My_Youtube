@@ -8,7 +8,8 @@ import {registerUser,
         getCurrentuser,
         updateAccountdetails,
         updateAvatar,
-        updateCoverimg} from '../controllers/user.controller.js'
+        updateCoverimg,
+        getwatchHistory} from '../controllers/user.controller.js'
 
 import {verifyJWT} from '../middlewares/auth.js'
 
@@ -45,6 +46,7 @@ router.route("/current-user").get(verifyJWT,getCurrentuser)
 router.route("/update-account").post(verifyJWT,updateAccountdetails)
 router.route("/updateAvatar").post(upload.single( 'avatar'),updateAvatar)
 router.route("/updateCoverimg").post(verifyJWT,upload.single('coverImage'),updateCoverimg)
+router.route("/watchhistory").get(verifyJWT,getwatchHistory)
 
 
 
