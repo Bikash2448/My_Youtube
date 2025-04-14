@@ -323,7 +323,7 @@ export const updateCoverimg = asyncHandler(async(req,res)=>{
 export const getUserProfie = asyncHandler(async(req,res)=>{
     const {username} = req.params
     if(!username?.trim()){
-        throw ApiError(400,"user name not defined")
+        throw new ApiError(400,"user name not defined")
     }
     const channel = await User.aggregate([
         {

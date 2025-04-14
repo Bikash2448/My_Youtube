@@ -9,7 +9,8 @@ import {registerUser,
         updateAccountdetails,
         updateAvatar,
         updateCoverimg,
-        getwatchHistory} from '../controllers/user.controller.js'
+        getwatchHistory,
+        getUserProfie} from '../controllers/user.controller.js'
 
 import {verifyJWT} from '../middlewares/auth.js'
 
@@ -21,12 +22,6 @@ router.get("/",(req,res)=>{
         message:"from router"
     })
 })
-// router.route('/').post((req,res)=>{
-//     console.log("router")
-//     res.json({
-//         message:"from router"
-//     })
-// })
 
 router.route('/register').post(
     upload.fields([
@@ -46,6 +41,7 @@ router.route("/current-user").get(verifyJWT,getCurrentuser)
 router.route("/update-account").post(verifyJWT,updateAccountdetails)
 router.route("/updateAvatar").post(upload.single( 'avatar'),updateAvatar)
 router.route("/updateCoverimg").post(verifyJWT,upload.single('coverImage'),updateCoverimg)
+router.route("/:username").get(verifyJWT,getUserProfie)
 router.route("/watchhistory").get(verifyJWT,getwatchHistory)
 
 

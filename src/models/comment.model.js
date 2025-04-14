@@ -3,16 +3,16 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
 
-    content: {
+        content: {
             type: String,
             required: true
         },
         video: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "video"
         },
         owner: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         }
 },{
