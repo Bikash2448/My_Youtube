@@ -4,6 +4,7 @@ import { app } from './app.js'
 import connectDB from './db/index.js'
 import express from "express"
 import { router } from './routes/user.router.js'
+import { videoRouter } from './routes/video.router.js'
 
 
 dotenv.config({path:'./.env'})
@@ -11,7 +12,8 @@ app.use(cookieParser())
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
-app.use('/',router)
+app.use('/api/user',router)
+app.use("/api/videos", videoRouter);
 
 
 

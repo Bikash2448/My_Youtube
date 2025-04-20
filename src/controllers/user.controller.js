@@ -93,7 +93,7 @@ export const registerUser = asyncHandler(async(req,res)=>{
 export const loginUser = asyncHandler(async(req,res)=>{
 
     const {username,email,password} = req.body
-    console.log(username,email,password)
+    // console.log(username,email,password)
     if (!username && !email) {
         throw new ApiError(400, "username or email is required")
     }
@@ -110,7 +110,7 @@ export const loginUser = asyncHandler(async(req,res)=>{
 
     console.log("code here")
     const {accesstoken,refreshtoken} = await generateAccessAndRefreshToken(user._id)
-    console.log("ji",accesstoken)
+    // console.log("ji",accesstoken)
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     
 
@@ -253,7 +253,7 @@ export const updateAccountdetails = asyncHandler(async(req,res)=>{
 
 export const updateAvatar = asyncHandler(async(req,res)=>{
     const avatarLocalPath = req.file?.path
-    console.log(avatarLocalPath)
+    // console.log(avatarLocalPath)
     if(!avatarLocalPath){
         return new ApiError(400,"avatar file missing")
     }
