@@ -1,6 +1,6 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { asyncHandler } from "../utils/AsyncHandler";
+import { asyncHandler } from "../utils/AsyncHandler.js";
 import { comments } from "../models/comment.model.js";
 
 export const getCommentVideo = asyncHandler(async(req,res)=>{
@@ -11,7 +11,7 @@ export const getCommentVideo = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "Video id can not find")
     }
 
-    const comment =  await comments.findById({video:videoId})
+    const comment =  await comments.find({video:videoId})
                                     .populate("owner", "username avatar fullName")    //Replaces a referenced ObjectId(owner id) with actual document data
                                     .skip((page - 1) * limit)   // how many items to skip when i am in a particular page.
                                     .limit(Number(limit))       // show how many comment
@@ -27,14 +27,16 @@ export const getCommentVideo = asyncHandler(async(req,res)=>{
 
 export const addComment = asyncHandler(async(req,res)=>{
     const {videoId} = req.params
-    const comment = req.body
+    const {content} = req.body
+    console.log(req.body)
+    console.log(content)
 
-    if(comment.trim()==""){
+    if(!content||content.trim()===""){
         throw new ApiError(400,"comment content required")
     }
 
     const createComment = await comments.create({
-        comment,
+        content,
         video: videoId,
         owner: req.user._id
     })

@@ -6,11 +6,11 @@ const tweetSchema = new mongoose.Schema({
         required: true
     },
     owner: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 },{
     timestamps:true
 })
 
-export const tweets = mongoose.model("tweets",tweetSchema);
+export const Tweets = mongoose.model("Tweets",tweetSchema);
